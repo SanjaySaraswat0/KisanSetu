@@ -1,4 +1,4 @@
-# KisanSetu AI 🌾
+# KisanSetu  🌾
 
 **Strengthening Market Linkages and Price Discovery for Farmers**
 Smart India Hackathon 2026 — Problem Statement **SIH26132** (Government of Maharashtra)
