@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Env
+.env
+.env.local
+
+# ML artifacts
+backend/app/ml/models/*.json
+!backend/app/ml/models/.gitkeep
+
+# Flutter
+mobile/**/build/
+mobile/**/.dart_tool/
+
+# OS
+.DS_Store
+*.log
