@@ -134,4 +134,6 @@ def recommend_action(
         "reasons": reasons,
         "logistics": logistics,
         "explanation": " ".join(reasons),
+        "reasoning": " ".join(reasons),
     }
+

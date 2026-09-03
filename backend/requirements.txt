@@ -7,7 +7,7 @@ pydantic-settings==2.5.2
 
 # --- Database ---
 sqlalchemy==2.0.35
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 alembic==1.13.3
 geoalchemy2==0.15.2      # PostGIS support
 redis==5.0.8
@@ -29,7 +29,6 @@ ultralytics==8.3.0        # YOLOv8 (crop quality grading)
 
 # --- Agentic AI ---
 langgraph==0.2.34
-langgraph-prebuilt>=0.1.0
 langchain-core==0.3.10
 langchain-google-genai==2.0.1
 google-generativeai==0.8.2

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { getPriceHistory } from "../api/client.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function PriceTrends() {
+  const { t } = useLanguage();
   const { crop } = useParams();
   const [records, setRecords] = useState([]);
 
@@ -19,7 +21,7 @@ export default function PriceTrends() {
   return (
     <div>
       <h2 className="text-2xl font-bold text-brand-navy mb-4 capitalize">
-        {crop} — Price Trend
+        {crop} — {t("trends.priceTrend")}
       </h2>
       <ResponsiveContainer width="100%" height={320}>
         <LineChart data={chartData}>
@@ -32,3 +34,4 @@ export default function PriceTrends() {
     </div>
   );
 }
+

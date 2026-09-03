@@ -13,9 +13,11 @@ router = APIRouter(prefix="/agent", tags=["agent"])
 class TextQueryRequest(BaseModel):
     text: str
     language: str = "en"  # hi, en, mr, ta, te
-    crop_name: str = "wheat"
+    crop_name: str = "Wheat"
     quantity_kg: float = 500.0
-    district: str = "Central"
+    district: str = "Ujjain"
+    context: dict | None = None
+    history: list[dict] | None = None
 
 
 class VoiceQueryRequest(BaseModel):
@@ -25,27 +27,25 @@ class VoiceQueryRequest(BaseModel):
 
 @router.post("/query")
 async def agent_text_query(payload: TextQueryRequest):
-    """Text-in / text-out agent query with BHASHINI multi-lingual support."""
-    query_en = payload.text
-    if payload.language != "en":
-        query_en = await translate_text(payload.text, payload.language, "en")
-
+    """Text-in / text-out agent query with real KisanSetu context & Gemini AI."""
     agent_result = run_agent_query(
-        query_en, crop_name=payload.crop_name, quantity_kg=payload.quantity_kg, district=payload.district
+        query=payload.text,
+        language=payload.language,
+        crop_name=payload.crop_name,
+        quantity_kg=payload.quantity_kg,
+        district=payload.district,
+        custom_context=payload.context,
+        history=payload.history,
     )
-
-    answer_en = agent_result.get("response", "")
-    answer_local = answer_en
-    if payload.language != "en":
-        answer_local = await translate_text(answer_en, "en", payload.language)
 
     return {
         "query": payload.text,
-        "query_en": query_en,
-        "answer": answer_local,
-        "answer_language": payload.language,
-        "engine": agent_result.get("engine", "KisanSetu Engine"),
-        "decision": agent_result.get("decision", None),
+        "answer": agent_result.get("response", ""),
+        "response": agent_result.get("response", ""),
+        "language": payload.language,
+        "engine": agent_result.get("engine", "Gemini 2.5 Flash"),
+        "status": agent_result.get("status", "success"),
+        "error": agent_result.get("error"),
     }
 
 

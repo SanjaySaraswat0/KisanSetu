@@ -21,7 +21,10 @@ export const getPriceHistory = (crop, params) =>
   apiClient.get(`/prices/${crop}/history`, { params }).then((r) => r.data);
 
 // --- Sell Decision ---
-export const getDecision = (payload) => apiClient.post("/decision", payload).then((r) => r.data);
+// getAIDecision is the primary export; getDecision is kept as an alias for compatibility.
+export const getAIDecision = (payload) =>
+  apiClient.post("/decision/recommend", payload).then((r) => r.data);
+export const getDecision = getAIDecision;
 
 // --- Agentic assistant ---
 export const askAgent = (payload) => apiClient.post("/agent/query", payload).then((r) => r.data);
@@ -29,3 +32,15 @@ export const askAgent = (payload) => apiClient.post("/agent/query", payload).the
 // --- Transactions ---
 export const createTransaction = (payload) =>
   apiClient.post("/transactions", payload).then((r) => r.data);
+
+// --- Quality Grading ---
+export const analyzeQuality = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("filename", file.name);
+  return apiClient
+    .post("/quality/analyze", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then((r) => r.data);
+};

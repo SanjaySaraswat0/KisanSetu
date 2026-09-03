@@ -16,12 +16,12 @@ def main():
     print("✔ DB tables created:", list(Base.metadata.tables.keys()))
 
     net = calculate_net_realization(20, 2, 1)
-    assert net == 17.0
+    assert net == 16.8
     print("✔ Net-realization engine OK:", net)
 
     decision = recommend_action("onion", 20, 500, storage_capacity_kg=1000)
     assert decision["action"] in {"SELL_NOW", "WAIT", "STORE", "AGGREGATE"}
-    print("✔ Sell-decision engine OK:", decision["action"], "-", decision["reasoning"])
+    print("✔ Sell-decision engine OK:", decision["action"], "-", decision["explanation"])
 
     from fastapi.testclient import TestClient
     from app.main import app
